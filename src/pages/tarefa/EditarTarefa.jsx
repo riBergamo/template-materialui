@@ -6,11 +6,9 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 
-//Declaração do componente EditarTarefa, recebendo como props, do Componente ListarTarefa, os states handCloseEditar,
-// idTarefaSelecionada, tarefas, tarefa e setTarefas
+
 const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefas, tarefa, setTarefas}) =>{
   const [idTarefa, setIdTarefa] = useState();
   const [tituloTarefa, setTituloTarefa] = useState('');
@@ -20,10 +18,7 @@ const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefas, tarefa, 
   const [recursoTarefa, setRecursoTarefa] = useState('');
   const [statusTarefa, setStatusTarefa] = useState('');
 
-  //Abaixo setamos os valores dos states (que popularão o formulário mais abaixo) com os valores do state Tarefa,
-  //  recebido como props do componente ListarTarefa.
   useEffect(() => {
-    //console.log('Tarefa selecionada: ' + JSON.stringify(tarefa));
     setIdTarefa(idTarefaSelecionada);
     setTituloTarefa(tarefa.tituloTarefa);
     setDescricaoTarefa(tarefa.descricaoTarefa);
@@ -42,8 +37,12 @@ const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefas, tarefa, 
   };
 
   const handleEditar = () => {
-    //console.log(`id: ${idTarefa} \n titulo: ${tituloTarefa} \n descrição: ${descricaoTarefa} \n inicio: ${inicioTarefa} \n fim: ${fimTarefa} \n recurso: ${recursoTarefa} \n status: ${statusTarefa}`);
-    //console.log('idTarefaSelecionada: ' + idTarefaSelecionada);
+    //Modificação: Validação de formulário
+    if (!tarefa.tituloTarefa || !tarefa.descricaoTarefa || !tarefa.inicioTarefa) {
+      alert("Por favor, preencha os campos obrigatórios.");
+      return;
+    } 
+  
     setTarefas(current =>
       current.map(obj => {
         if (obj.idTarefa === idTarefaSelecionada) {
@@ -63,7 +62,6 @@ const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefas, tarefa, 
       }),
     );
 
-    //console.log(`Tarefas Editadas: ` + JSON.stringify(tarefas));
     handleCloseEditar();
   };
 

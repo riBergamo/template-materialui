@@ -18,20 +18,18 @@ import Modal from '@mui/material/Modal';
 import CriarTarefa from './CriarTarefa';
 import EditarTarefa from './EditarTarefa';
 
-//A função abaixo é usada para criar o array contendo os dados iniciais da listagem de tarefas.
 function createData(
-  idTarefa: number,
-  tituloTarefa: string,
-  descricaoTarefa: string,
-  inicioTarefa: string,
-  fimTarefa: string,
-  statusTarefa: string,
-  recursoTarefa: string,
+  idTarefa,
+  tituloTarefa,
+  descricaoTarefa,
+  inicioTarefa,
+  fimTarefa,
+  statusTarefa,
+  recursoTarefa,
 ) {
   return { idTarefa, tituloTarefa, descricaoTarefa, inicioTarefa, fimTarefa, statusTarefa, recursoTarefa };
 }
 
-//Definição do array contendo os dados iniciais da listagem de tarefas
 const initialRows = [
   createData(1, 'Tarefa 1', 'Descrição da Tarefa 1', '2022-01-01', '2022-01-02', 'Concluída', 'Recurso 1'),
   createData(2, 'Tarefa 2', 'Descrição da Tarefa 2', '2022-01-03', '2022-01-04', 'Em Andamento', 'Recurso 2'),
@@ -41,7 +39,6 @@ const initialRows = [
   createData(6, 'Tarefa 6', 'Descrição da Tarefa 6', '2022-01-07', '2022-01-08', 'Aguardando', 'Recurso 6'),
 ];
 
-//Componente ListarTarefa
 const ListarTarefa = () => {
   const [open, setOpen] = useState(false);
   const [openEditar, setOpenEditar] = useState(false);
@@ -53,7 +50,6 @@ const ListarTarefa = () => {
   const handleOpenEditar = () => setOpenEditar(true);
   const handleCloseEditar = () => setOpenEditar(false);
 
-  //O array definido acima é setado como conteúdo do state Tarefas na renderização inicial do componente.
   useEffect(() => {
     setTarefas(initialRows);
   },[]);
@@ -61,15 +57,12 @@ const ListarTarefa = () => {
   const handleEditar = (id) => {
     setIdTarefaSelecionada(id);
 
-    //Objeto local para armazenamento da tarefa filtrada de acordo com a seleção do usuário
     let tarefaParaEditar = tarefas.filter(obj => {
       return obj.idTarefa === id;
     })[0];
 
-    //Atribuição do Objeto local, setado acima, ao state Tarefa
     setTarefa(tarefaParaEditar);
 
-    //Seta como true o state responsável pela exibição do Model de Editar Tarefa
     setOpenEditar(true)
   };
 
